@@ -30,14 +30,13 @@ const questions = [
 // ===============================
 
 let currentQuestion = 0;
-
 let xp = 0;
-
 let level = 1;
-
 let lives = 3;
-
 let streak = 0;
+
+// NEW: prevents multiple answers
+let answered = false;
 
 
 // ===============================
@@ -46,16 +45,33 @@ let streak = 0;
 
 function loadQuestion() {
 
+    answered = false;
+
     const questionData =
         questions[currentQuestion];
 
+    // Display question
+
     document.getElementById("question").textContent =
         questionData.question;
+
+
+    // Update progress
+
+    document.getElementById("progress").textContent =
+        "Question " +
+        (currentQuestion + 1) +
+        " / " +
+        questions.length;
+
+
+    // Create answer buttons
 
     const optionsContainer =
         document.getElementById("options");
 
     optionsContainer.innerHTML = "";
+
 
     questionData.options.forEach(
         (option, index) => {
@@ -65,18 +81,26 @@ function loadQuestion() {
 
             button.textContent = option;
 
+
             button.onclick = function () {
 
-                checkAnswer(index);
+                checkAnswer(index, button);
 
             };
+
 
             optionsContainer.appendChild(button);
 
         }
     );
 
+
+    // Reset feedback
+
     document.getElementById("feedback").textContent = "";
+
+
+    // Hide next button
 
     document.getElementById("nextButton").style.display =
         "none";
@@ -87,45 +111,91 @@ function loadQuestion() {
 // CHECK ANSWER
 // ===============================
 
-function checkAnswer(selectedAnswer) {
+function checkAnswer(selectedAnswer, selectedButton) {
+
+    // Prevent multiple answers
+
+    if (answered) {
+        return;
+    }
+
+    answered = true;
+
 
     const correctAnswer =
         questions[currentQuestion].answer;
+
 
     const feedback =
         document.getElementById("feedback");
 
 
-    // CORRECT ANSWER
+    const optionButtons =
+        document.querySelectorAll("#options button");
+
+
+    // Disable all buttons
+
+    optionButtons.forEach(
+        button => {
+
+            button.disabled = true;
+
+        }
+    );
+
+
+    // Correct answer
+
     if (selectedAnswer === correctAnswer) {
 
         xp += 100;
 
         streak++;
 
+
+        selectedButton.classList.add("correct");
+
+
         feedback.textContent =
             "✅ Correct! +100 XP";
+
 
         checkLevelUp();
 
     }
 
 
-    // WRONG ANSWER
+    // Wrong answer
+
     else {
 
         lives--;
 
         streak = 0;
 
+
+        selectedButton.classList.add("wrong");
+
+
+        // Highlight correct answer
+
+        optionButtons[correctAnswer]
+            .classList.add("correct");
+
+
         feedback.textContent =
             "❌ Wrong answer! You lost a life.";
 
+        
         if (lives <= 0) {
 
-            gameOver();
+            updateGameUI();
+
+            setTimeout(gameOver, 800);
 
             return;
+
         }
 
     }
@@ -133,8 +203,9 @@ function checkAnswer(selectedAnswer) {
 
     updateGameUI();
 
-    document.getElementById("nextButton").style.display =
-        "block";
+
+    document.getElementById("nextButton")
+        .style.display = "block";
 }
 
 
@@ -152,8 +223,11 @@ function checkLevelUp() {
 
         level = newLevel;
 
-        document.getElementById("feedback").textContent =
-            "🎉 LEVEL UP! You reached Level " + level;
+
+        document.getElementById("feedback")
+            .textContent =
+            "🎉 LEVEL UP! You reached Level " +
+            level;
 
     }
 
@@ -189,6 +263,7 @@ function nextQuestion() {
 
     currentQuestion++;
 
+
     if (currentQuestion >= questions.length) {
 
         alert(
@@ -198,9 +273,11 @@ function nextQuestion() {
             "\nStreak: " + streak
         );
 
+
         currentQuestion = 0;
 
     }
+
 
     loadQuestion();
 
@@ -223,13 +300,9 @@ function gameOver() {
     // Reset game
 
     xp = 0;
-
     level = 1;
-
     lives = 3;
-
     streak = 0;
-
     currentQuestion = 0;
 
 
