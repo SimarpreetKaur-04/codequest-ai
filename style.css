@@ -1,3 +1,7 @@
+/* ------------------------------
+   GLOBAL
+------------------------------ */
+
 * {
     margin: 0;
     padding: 0;
@@ -5,126 +9,132 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #0f172a, #111827, #1e1b4b);
+    color: #f8fafc;
     min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
+
+
+/* ------------------------------
+   MAIN CONTAINER
+------------------------------ */
 
 .game-container {
     width: 90%;
-    max-width: 700px;
+    max-width: 850px;
+    margin: auto;
+    padding: 40px 0;
+}
+
+
+/* ------------------------------
+   HEADER
+------------------------------ */
+
+header {
     text-align: center;
-}
-
-h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
-}
-
-.tagline {
-    color: #94a3b8;
     margin-bottom: 30px;
 }
 
+header h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #94a3b8;
+    font-size: 18px;
+}
+
+
+/* ------------------------------
+   GAME INFO
+------------------------------ */
+
 .game-info {
-    display: flex;
-    justify-content: space-between;
-
-    background: #1e293b;
-
-    padding: 15px 20px;
-
-    border-radius: 10px;
-
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
     margin-bottom: 20px;
 }
 
-.question-card {
-    background: #1e293b;
-
-    padding: 30px;
-
-    border-radius: 15px;
-
-    text-align: left;
+.game-info span {
+    background: rgba(30, 41, 59, 0.9);
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #334155;
 }
 
-.level {
-    color: #38bdf8;
-    font-size: 14px;
-    margin-bottom: 15px;
+.game-info strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 20px;
 }
 
-h2 {
+
+/* ------------------------------
+   XP BAR
+------------------------------ */
+
+.xp-container {
     margin-bottom: 25px;
 }
 
-#options button {
-    display: block;
+.xp-label {
+    display: flex;
+    justify-content: space-between;
+    color: #cbd5e1;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
 
+.xp-bar {
     width: 100%;
-
-    padding: 15px;
-
-    margin: 10px 0;
-
-    border: 1px solid #475569;
-
-    border-radius: 8px;
-
-    background: #0f172a;
-
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 16px;
-
-    text-align: left;
+    height: 12px;
+    background: #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-#options button:hover {
-    background: #334155;
+#xpProgress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    border-radius: 10px;
+    transition: width 0.5s ease;
 }
 
-#feedback {
-    margin-top: 20px;
-    font-weight: bold;
+
+/* ------------------------------
+   QUESTION CARD
+------------------------------ */
+
+.question-card {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid #334155;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
-#nextButton {
-    display: none;
 
-    margin-top: 20px;
-
-    padding: 12px 20px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #38bdf8;
-
-    color: #0f172a;
-
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-/* Question Header */
+/* ------------------------------
+   QUESTION HEADER
+------------------------------ */
 
 .question-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.level {
+    color: #a78bfa;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 #progress {
@@ -133,15 +143,60 @@ h2 {
 }
 
 
-/* Correct Answer */
+/* ------------------------------
+   QUESTION
+------------------------------ */
+
+#question {
+    font-size: 25px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+
+/* ------------------------------
+   ANSWERS
+------------------------------ */
+
+#options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#options button {
+    width: 100%;
+    padding: 16px;
+    background: #1e293b;
+    color: white;
+    border: 2px solid #334155;
+    border-radius: 12px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#options button:hover {
+    background: #334155;
+    border-color: #6366f1;
+    transform: translateY(-2px);
+}
+
+#options button:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+
+/* ------------------------------
+   CORRECT / WRONG
+------------------------------ */
 
 #options button.correct {
     background: #166534;
     border-color: #22c55e;
 }
-
-
-/* Wrong Answer */
 
 #options button.wrong {
     background: #991b1b;
@@ -149,9 +204,193 @@ h2 {
 }
 
 
-/* Disabled Buttons */
+/* ------------------------------
+   FEEDBACK
+------------------------------ */
 
-#options button:disabled {
-    cursor: not-allowed;
-    opacity: 0.9;
+#feedback {
+    min-height: 30px;
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+/* ------------------------------
+   NEXT BUTTON
+------------------------------ */
+
+#nextBtn {
+    display: none;
+    margin-top: 25px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #6366f1;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#nextBtn:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+}
+
+
+/* ------------------------------
+   GAME OVER / COMPLETION
+------------------------------ */
+
+.game-over {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(2, 6, 23, 0.92);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.game-over-card {
+    width: 100%;
+    max-width: 500px;
+
+    background: #0f172a;
+
+    border: 1px solid #334155;
+    border-radius: 20px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.game-over-card h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.game-over-card p {
+    color: #94a3b8;
+    margin-bottom: 25px;
+}
+
+
+/* ------------------------------
+   FINAL STATS
+------------------------------ */
+
+.final-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.final-stats div {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.final-stats span {
+    display: block;
+    color: #94a3b8;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.final-stats strong {
+    font-size: 22px;
+}
+
+
+/* ------------------------------
+   RESTART BUTTON
+------------------------------ */
+
+#restartBtn,
+#completionRestartBtn {
+    width: 100%;
+    padding: 15px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #6366f1;
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#restartBtn:hover,
+#completionRestartBtn:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+}
+
+
+/* ------------------------------
+   FOOTER
+------------------------------ */
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------ */
+
+@media (max-width: 650px) {
+
+    .game-container {
+        width: 94%;
+        padding: 25px 0;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    .game-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .question-card {
+        padding: 20px;
+    }
+
+    #question {
+        font-size: 21px;
+    }
+
+    .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .final-stats {
+        grid-template-columns: 1fr;
+    }
 }
