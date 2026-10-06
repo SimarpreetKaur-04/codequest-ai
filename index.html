@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>CodeQuest AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="game-container">
+
+        <h1>🤖 CodeQuest AI</h1>
+
+        <p class="tagline">
+            Learn. Solve. Level Up.
+        </p>
+
+        <div class="game-info">
+            <span>⭐ XP: <strong id="xp">0</strong></span>
+            <span>🔥 Streak: <strong id="streak">0</strong></span>
+        </div>
+
+        <div class="question-card">
+
+            <p class="level">LEVEL 1 • Programming Basics</p>
+
+            <h2 id="question">
+                Which data structure follows the FIFO principle?
+            </h2>
+
+            <div id="options">
+
+                <button onclick="checkAnswer(0)">
+                    Stack
+                </button>
+
+                <button onclick="checkAnswer(1)">
+                    Queue
+                </button>
+
+                <button onclick="checkAnswer(2)">
+                    Tree
+                </button>
+
+                <button onclick="checkAnswer(3)">
+                    Graph
+                </button>
+
+            </div>
+
+            <p id="feedback"></p>
+
+            <button id="nextButton" onclick="nextQuestion()">
+                Next Challenge →
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
