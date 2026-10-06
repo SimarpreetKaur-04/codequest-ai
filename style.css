@@ -117,3 +117,41 @@ h2 {
 
     cursor: pointer;
 }
+
+/* Question Header */
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#progress {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+
+/* Correct Answer */
+
+#options button.correct {
+    background: #166534;
+    border-color: #22c55e;
+}
+
+
+/* Wrong Answer */
+
+#options button.wrong {
+    background: #991b1b;
+    border-color: #ef4444;
+}
+
+
+/* Disabled Buttons */
+
+#options button:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+}
